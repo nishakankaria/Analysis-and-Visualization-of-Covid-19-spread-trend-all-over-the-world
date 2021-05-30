@@ -1,0 +1,459 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <title>Covid-19 Confirmed Cases</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="css/style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+
+<script type="text/javascript">
+var day='';
+
+      $(function() {
+      var $j = jQuery.noConflict();
+    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
+    $("#datepicker1").datepicker( "setDate" , "14/04/2020" );
+    fillMapData();
+
+});
+
+
+    $(function() {
+        $("#datepicker1").datepicker();
+    });
+
+
+function datechange()
+{
+
+fillMapData();
+}
+
+
+
+</script>
+
+</head>
+
+<body style="background-color:#b59b9b!important;">
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a style="font-size: 18px; color:white;" class="nav-item nav-link ml-2" href="main.html">Back to Home Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto mr-5">
+                <a class="nav-item nav-link active ml-2" href="#covid-map-section"
+                    style="color: #09f3e8; font-family:'Poppins', sans-serif;">Map <span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link ml-2" href="#covid-barchart-section"
+                    style="color: #09f3e8; font-family:'Poppins', sans-serif;">Bar Chart</a>
+                <a class="nav-item nav-link ml-2" href="#covid-tablechart-section"
+                    style="color: #09f3e8; font-family:'Poppins', sans-serif;">Table </a>
+            </div>
+        </div>
+    </nav>
+
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color:#359e8e!important;">
+       <label id="lblDate"  style=" color: black; font-weight:bold;">  
+	   Covid-19 spread trend all over the world upto 14th Dec 2020
+	   </label>
+    </nav>
+
+
+     <section id="covid-map-section">
+    <div class="container-fluid">
+	<br/>
+        <!-- World Map -->
+        <div class="row">
+<br/>
+            <div class="col-sm-12">
+<label id="lblDate" text="Date:" style=" color: white; font-weight:bold;"> Enter a date:     </label>
+               <input type="text" id="datepicker1" onchange="datechange()" style="width:23%">  </input>
+</div>
+
+            <div class="col-sm-12">
+              <div class="row">
+                <div id="my_dataviz">
+
+                </div>
+              </div>
+         
+
+            </div>
+
+
+        </div>
+ 
+
+    <div class="row">
+        <ul>
+            <li> Created a JavaScript Choropleth Map that is visualizing the Covid-19 spread trend all over the world from 1st Dec 2019 to 14th Dec 2020 using data from the European Center for Disease Prevention and Control. I am using the JSON version of the data for this visualization.
+            </li>
+            <li>
+                I have provided a date input field so that the user can enter a date to visualize the spread of the Coronavirus all over the world on a choropleth map from 1st Dec 2019 to 14th Dec 2020.
+            </li>
+            <li>
+                Data Processing-
+To implement the above, you need to write some code. Here is the approach I used to visualize and structure the data:
+<ul>
+    <li>
+        I will read the JSON data and calculate the total cases for each country. As soon as I am done with one country, I will pass this info into an array that I have named “dataForMap” and then I will continue with the next country.
+    </li>
+    <li>
+        	The JSON data contains data per day for each country. So, I’m first filtering the JSON data by the date entered by the user and then passing the following information: country territory code (the geographic identifier for the country), date, total number of cases, population and total number of deaths into an array that I have named “dataForMap”.
+
+    </li>
+    <li>
+        The final part of this step connects the resulting data with the JS choropleth map.
+    </li>
+
+
+</ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+     </section>
+
+
+<section id="covid-barchart-section">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color:#359e8e!important;">
+       <label id="lblDate"  style=" color: black; font-weight:bold;">
+	  Worldwide active cases in the past 100 Days     </label>
+
+    </nav>
+      <!-- Bar Chart -->
+        <div class="row">
+          <div id="bar-chart" class="col-sm-10">
+
+
+            <!-- Country Select Input -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="country-select">Country: </label>
+              </div>
+              <select class="custom-select" id="country-select">
+                <option selected>Select a country/province</option>
+              </select>
+            </div>
+          </div>
+        </div>
+    <div class="row">
+        <ul>
+            <li>
+                	This visualization shows worldwide active cases in the past 100 days.
+            </li>
+            <li>
+                	I have used the data source from this API https://corona.lmao.ninja/v2/historical?lastdays=100. I am using the data directly without filtering it or changing its data structure.
+            </li>
+            <li>
+                	User Level of Interaction – select the country from the dropdown to see the worldwide actives cases in the past 100 days for that country. You can also view number of cases when you mouse over the line chart.
+            </li>
+        </ul>
+    </div>
+</section>
+
+ <section id="covid-tablechart-section">
+     <div class="table-wrapper">
+        <h2>Worldwide Cases</h2>
+        <div class="country-data">
+          <table id="table" class="country-data-1">
+            <thead>
+              <tr>
+                <th scope="col">Country Name</th>
+                <th scope="col">Cases</th>
+                <th scope="col">Active Cases</th>
+                <th scope="col">Recovered</th>
+                <th scope="col">Deaths</th>
+              </tr>
+            </thead>
+            <tbody id="table-data">
+              <tr>
+                <td>Country Name</td>
+                <td>Cases</td>
+                <td>Active Cases</td>
+                <td>Recovered</td>
+                <td>Deaths</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>xxxxx</td>
+                <td>yyyyyy</td>
+                <td>zzz</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>xxxxx</td>
+                <td>yyyyy</td>
+                <td>zzzz</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h5>
+
+        </h5>
+      </div>
+     <div class="row">
+         <ul>
+             <li>	I have used the data from this API-> https://corona.lmao.ninja/v2/countries</li>
+             <li>
+                 	This API provides live covid cases data for the current date.
+             </li>
+             <li>
+                 This visualization will provide the user an overall idea on number of cases spread across world.
+             </li>
+         </ul>
+     </div>
+ </section>
+<div class="row">
+     <ul>
+     Acknowledgment & Code reference:
+          <li>	https://github.com/AbbyXing/covid-glb</li>
+ <li>	github.com/NovelCOVID/API</li>
+ <li> https://corona.lmao.ninja/v2/countries</li>
+ <li>	https://corona.lmao.ninja/v2/historical?lastdays=100</li>
+ <li>	https://www.anychart.com/blog/2020/05/06/javascript-choropleth-map-tutorial/</li>
+
+ </ul>
+</div>
+
+
+<!-- External JS libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://kit.fontawesome.com/dc430c9592.js" crossorigin="anonymous"></script>
+
+<!-- Custom JS -->
+<!-- <script src="js/world-map.js"></script> -->
+
+<script type="text/javascript">
+    function fillMapData()
+    {
+
+//d3.selectAll("path").remove();
+document.getElementById("my_dataviz").innerHTML = "";
+var div = d3.select("#my_dataviz");
+var width = div.style("width").replace("px", "");
+
+var svg = div
+	.append("svg")
+	.attr("width", "100%");
+
+var height = width * 0.5;
+svg.attr("height", height);
+
+// Tooltip
+var tooltip = d3.select('body')
+				.append('div')
+    			.attr('class', 'hidden tooltip')
+    			.style("visibility", "hidden");
+
+// Projection
+const projection = d3
+	.geoEckert4()
+	.scale(175)
+    .translate([0.51 * width, 0.5 * height]);
+
+// Path and Graticule
+const path = d3.geoPath().projection(projection);
+var graticule = d3.geoGraticule10();
+
+// Color Scale
+var colorScaleCases = d3.scaleThreshold()
+  .domain([0, 100, 400, 800, 5000, 10000, 30000, 50000])
+  .range(d3.schemeReds[9]);
+var colorScaleDeath = d3.scaleThreshold()
+  .domain([0, 50, 100, 200, 500, 1000, 5000, 10000])
+  .range(d3.schemeBlues[9]);
+var colorScalePopulation = d3.scaleThreshold()
+	.domain([0, 5, 10, 50, 100, 200, 500, 1000])
+	.range(d3.schemeGreens[9]);
+var colorScaleCountry = d3.scaleThreshold()
+	.domain([0, 5, 100, 300, 700, 900, 1000, 3000])
+	.range(d3.schemeGreens[9]);
+var colorScales = d3.map()
+	.set("cases", colorScaleCases)
+	.set("deaths", colorScaleDeath)
+	.set("popData2019", colorScalePopulation)
+.set("geoId", colorScaleCountry)
+
+
+// Handmade legend
+svg.append("circle").attr("cx",40).attr("cy",30).attr("r", 6).style("fill", "rgb(203, 24, 29)")
+svg.append("text").attr("x", 50).attr("y", 30).text(">10000 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+
+svg.append("circle").attr("cx",40).attr("cy",45).attr("r", 6).style("fill", "rgb(239, 59, 44)")
+svg.append("text").attr("x", 50).attr("y", 45).text("<10000 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+svg.append("circle").attr("cx",40).attr("cy",60).attr("r", 6).style("fill", "rgb(251, 106, 74)")
+svg.append("text").attr("x", 50).attr("y", 60).text("<5000 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+
+svg.append("circle").attr("cx",40).attr("cy",75).attr("r", 6).style("fill", "rgb(252, 146, 114)")
+svg.append("text").attr("x", 50).attr("y", 75).text("<1000 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+
+svg.append("circle").attr("cx",40).attr("cy",90).attr("r", 6).style("fill", "rgb(252, 187, 161)")
+svg.append("text").attr("x", 50).attr("y", 90).text("<400 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+
+svg.append("circle").attr("cx",40).attr("cy",105).attr("r", 6).style("fill", "rgb(254, 224, 210)")
+svg.append("text").attr("x", 50).attr("y", 105).text("<100 no. of cases").style("font-size", "15px").attr("alignment-baseline","middle")
+
+// Load External Data
+var dataForMap = d3.map();
+var promises = [
+	d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),
+	d3.json("data/COVID-19-geographic-disbtribution-worldwide.json")
+];
+
+// countries map
+var countries;
+
+Promise.all(promises).then(function(allData){
+	var topo = allData[0];
+	var example = allData[1].records;
+	example = allData[1].records.filter(function (a) { return a.dateRep == document.getElementById('datepicker1').value;});
+	example.forEach(function(d){
+		dataForMap.set(d.countryterritoryCode,
+			{"dateRep": d.dateRep, "cases": +d.cases, "deaths": +d.deaths, "popData2019": +d.popData2019, 
+			"countriesAndTerritories": +d.countriesAndTerritories});
+	});
+
+	countries = ready(topo, countries);
+});
+
+// Data Toggle
+var value = "cases";
+function dataToggle(v){
+	value = v;
+	countries
+		.attr("fill", function (d) {
+      		d.total = 0;
+      		if(dataForMap.has(d.countryterritoryCode))
+	        	d.total = +dataForMap.get(d.countryterritoryCode)[value];
+	        return colorScales.get(value)(d.total);
+	    });
+	    //d3.select(".title-word").text(value.toUpperCase());
+}
+
+var value1 = "countriesAndTerritories";
+function dataToggle(v){
+	value1 = v;
+	countries
+		.attr("fill", function (d) {
+      		d.total = "";
+      		if(dataForMap.has(d.countryterritoryCode))
+	        	d.total = dataForMap.get(d.countryterritoryCode)[value1];
+	        return colorScales.get(value1)(d.total);
+	    });
+	    //d3.select(".title-word").text(value.toUpperCase());
+}
+
+
+function ready(topo, countries) {
+	svg
+		.append("g")
+		.attr("class", "grid")
+		.append("path")
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", path)
+		.attr("opacity", 0.8)
+		.attr('stroke-width', '0.5px')
+	    .attr('stroke', '#ccc')
+	    .attr("fill", "none");
+
+
+	var countries = svg
+		.append("g")
+		.attr("class", "geomap")
+	    .selectAll(".country")
+	    .data(topo.features)
+	    .enter()
+	    .append("path")
+	    .attr("class", function(d){
+	    	return "country " + d.id;
+	    })
+	    .attr("d", path)
+	    // set the color of each country
+      	.attr("fill", function (d) {
+      		d.total = 0;
+      		if(dataForMap.has(d.id))
+	        	d.total = +dataForMap.get(d.id)[value];
+	        return colorScaleCases(d.total);
+	    })
+	    .on("mouseover", function(d){
+	    	if(dataForMap.has(d.id))
+	    		tooltip.style("visibility", "visible")
+	    			.html( "<span> Population: " + dataForMap.get(d.id)["popData2019"] + "</span>"
+			
+					+"<br/><span> Cases: " + dataForMap.get(d.id)["cases"] + "</span>"
+                		+ "<br/> Deaths: " + dataForMap.get(d.id)["deaths"] );
+	    })
+	    .on("mousemove", function(d) {
+            tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+        })
+        .on("mouseout", function() {
+            return tooltip.style("visibility", "hidden");
+        });
+    return countries;
+}
+
+
+
+window.onload = () => {
+  getCountryData();
+};
+
+
+const formatter = new Intl.NumberFormat("en");
+
+const getCountryData = () => {
+  fetch("https://corona.lmao.ninja/v2/countries")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      //showDataOnMap(data);
+      showDataInTable(data);
+      // console.log(data);
+    });
+};
+
+
+// Show Data in Table
+const showDataInTable = (data) => {
+  var html = "";
+  data.forEach((country) => {
+    html += `
+    <tr>
+        <td> <img src= "${country.countryInfo.flag}">${country.country}</td>
+        <td>${formatter.format(country.cases)}</td>
+        <td>${formatter.format(country.active)}</td>
+        <td>${formatter.format(country.recovered)}</td>
+        <td>${formatter.format(country.deaths)}</td>
+    </tr>
+     `;
+  });
+  document.getElementById("table-data").innerHTML = html;
+};
+}
+
+</script>
+<script src="js/bar-chart.js"></script>
+</body>
+</html>
+
