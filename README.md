@@ -87,7 +87,7 @@ b) Second is the bar chart displaying worldwide active cases in the past 100 day
  
  
 c) Third is the table displaying the current covid cases across the world 
- 
+
  
 ➢	I have used the data from this API-> https://corona.lmao.ninja/v2/countries 
  
