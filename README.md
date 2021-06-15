@@ -1,6 +1,8 @@
 # Analysis-and-Visualization-of-Covid-19-spread-trend-all-over-the-world
 
 
+ Refer to the Report.pdf file 
+ 
  
 Part 1. Design and Discussion 
  
