@@ -46,6 +46,7 @@ Q3. Analyze the pandemic spike in depression and anxiety in the UK adults
 For this research question, I decided to implement a bar chart to visualize the pandemic spike in depression and anxiety in the UK adults. My reason for choosing a bar chart to answer this research question is that bar charts are easy to understand, widely used, and can show changes over time and works well with the numeric data.  
  
 Part 2: Implementation 
+
 Research Question Q1: Analyze the spread trend of this virus all over the world. What is the spread over time? 
 I created a dashboard which contains three tabs – Home, Visualization and News.  
   
